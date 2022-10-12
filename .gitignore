@@ -154,3 +154,9 @@ cython_debug/
 
 # For Mac
 .DS_Store
+
+# Vs Code
+.vscode
+
+# database
+*.db
