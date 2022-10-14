@@ -160,3 +160,6 @@ cython_debug/
 
 # database
 *.db
+
+# scratch-test files used for personal purpose
+test.py

@@ -26,7 +26,7 @@ class Coustomer:
         self.phone_no = phone_no
         self.vehicle_type = vehicle_type
         self.test_date = datetime.date.today()
-        self.test_time = datetime.datetime.time(datetime.datetime.now())
+        self.test_time = datetime.datetime.now()
         self.expiry = expiry
         self.price = price
 
@@ -39,30 +39,33 @@ if DEBUG:
     # If DEBUG is true, create a database in memory with a few random entries
     # else, create/connect to the existing database
 
-    conn = sqlite3.connect(":memory:")
+    conn = sqlite3.connect(
+        ":memory:", detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
+    )
     print("[OK] Created test database in memory")
     # In order to execute SQL statements and fetch results from SQL queries,
     # we will need to use a database cursor. Call con.cursor() to create the Cursor:
     cursor = conn.cursor()
 
-    # ID must be INTEGER for AUTOINCREMENT to work
-
+    # ID is automatically inserted as ROWID
+    # To get ROWID you use have to explicity say it
+    # eg, SELECT ROWID, * FROM cousomers
     cursor.execute(
         """
-        CREATE TABLE coustomers 
-        (ID INTEGER PRIMARY KEY AUTOINCREMENT, 
-        VEHICLE_NO TEXT NOT NULL, 
+        CREATE TABLE coustomers  
+        (VEHICLE_NO TEXT NOT NULL,
         PHONE_NO INT NOT NULL, 
         VEHICLE_TYPE TEXT NOT NULL, 
-        TEST_DATE DATE NOT NULL, 
-        TEST_TIME TIMESTAMP NOT NULL, 
-        EXPIRY DATE NOT NULL, 
+        TEST_DATE date NOT NULL, 
+        TEST_TIME timestamp NOT NULL, 
+        EXPIRY date NOT NULL, 
         PRICE INT NOT NULL)
         """
     )
 
     conn.commit()
 
+    # creating few coustomer instace with random data
     today = datetime.date.today()
     now = datetime.datetime.now()
     e1 = datetime.date.fromisoformat("2023-10-04")
@@ -112,29 +115,21 @@ if DEBUG:
         ),
     ]
 
-    # cursor.execute(
-    #     """INSERT INTO coustomer
-    # 	(VEHICLE_NO, PHONE_NO,
-    # 	TYPE, TEST_DATE, TEST_TIME,
-    # 	EXPIRY)
-    # 	VALUES (?, ?, ?, ?, ?, ?)""",
-    #     ("kl51k0000", 1234567890, "JEEP", today, now, expiry),
-    # )
+    try:
+        cursor.executemany(
+            """
+            INSERT INTO coustomers (VEHICLE_NO, PHONE_NO, VEHICLE_TYPE, TEST_DATE, TEST_TIME, EXPIRY, PRICE) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            sample_data,
+        )
+        conn.commit()
 
-    # Error in next lines
-    # Parameter 4th not matching with it's datatype
+        cursor.execute("""SELECT * FROM coustomers""")
+        data = cursor.fetchone()
+        print(data)
 
-    cursor.executemany(
-        """
-        INSERT INTO coustomers (VEHICLE_NO, PHONE_NO, VEHICLE_TYPE, TEST_DATE, TEST_TIME, EXPIRY, PRICE) VALUES (?, ?, ?, ?, ?, ?, ?)
-        """,
-        sample_data,
-    )
+        conn.close()
 
-    conn.commit()
-
-    cursor.execute("""SELECT * FROM coustomer""")
-    data = cursor.fetchall()
-    print(data)
-
-    conn.close()
+    except sqlite3.Error as error:
+        conn.close()
+        print(error)
