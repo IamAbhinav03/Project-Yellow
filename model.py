@@ -33,6 +33,7 @@ class CustomersDB:
             )
             logging.info("Inserted tables to the db")
             conn.commit()
+            cursor.close()
             conn.close()
         except sqlite3.Error as error:
             logging.critical(f"Could not connect to database\n{error}")
@@ -98,6 +99,7 @@ class CustomersDB:
             except sqlite3.Error as error:
                 logging.critical(error)
 
+            cursor.close()
             conn.close()
 
     def update_db_entry(self):
@@ -123,6 +125,7 @@ class CustomersDB:
                     t = cursor.fetchmany(n)
                     logging.info(f"Fetched first {n} entries from db")
 
+            cursor.close()
             conn.close()
             return t
 
