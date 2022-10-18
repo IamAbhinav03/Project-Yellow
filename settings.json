@@ -1,4 +1,1 @@
-{
-  "DEBUG": true,
-  "DB_INITIALIZED": false
-}
+{"DEBUG": true, "DB_INITIALIZED": true}
