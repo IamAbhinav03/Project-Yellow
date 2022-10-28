@@ -54,20 +54,20 @@ def main():
             json.dump(settings, file)
             logging.info("Updated Settings")
 
-    vehicle_no = input("Entter vehicle Number\t\t")
-    name = input("Enter name\t\t")
-    phone_no = int(input("Enter phone number\t\t"))
-    vehicle_type = input("Enter vehicle type\t\t")
-    expiry_day = int(input("Enter expiry day\t\t"))
-    expiry_month = int(input("Enter expiry month\t\t"))
-    expiry_year = int(input("Enter expiry year\t\t"))
-    price = int(input("Enter price\t"))
+    # vehicle_no = input("Entter vehicle Number\t\t")
+    # name = input("Enter name\t\t")
+    # phone_no = int(input("Enter phone number\t\t"))
+    # vehicle_type = input("Enter vehicle type\t\t")
+    # expiry_day = int(input("Enter expiry day\t\t"))
+    # expiry_month = int(input("Enter expiry month\t\t"))
+    # expiry_year = int(input("Enter expiry year\t\t"))
+    # price = int(input("Enter price\t"))
 
-    expiry = datetime.date(expiry_year, expiry_month, expiry_day)
+    # expiry = datetime.date(expiry_year, expiry_month, expiry_day)
 
-    c = Customer(vehicle_no, name, phone_no, vehicle_type, expiry, price)
-    print(c)
-    db.insert_to_db(c)
+    # c = Customer(vehicle_no, name, phone_no, vehicle_type, expiry, price)
+    # print(c)
+    # db.insert_to_db(c)
 
     print(db.get_n_entry())
 
