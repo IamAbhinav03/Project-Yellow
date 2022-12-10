@@ -8,7 +8,7 @@ body {
   background-color: #2d2a4b;
   font-family: "Times New Roman", Times, serif;
   color: white;
-  font-size: 28px;
+  font-size: 50px;
 }
 
 li {
@@ -37,12 +37,12 @@ img {
 .side-nav-header h3 {
   display: inline;
   margin-left: 10px;
-  margin-top: 20px;
+  margin-top: 33px;
   padding: 0;
 }
 
 .side-nav-header img {
-  margin-top: 13px;
+  margin-top: 40px;
 }
 
 .side-nav-body {
@@ -52,22 +52,37 @@ img {
 
 .side-nav-body li {
   padding: 12px;
+  margin-bottom: 50px;
 }
 
 .side-nav-footer {
   padding-left: 40px;
+  position: fixed;
 }
 
 .main {
-  padding-top: 10%;
-  margin-left: 30%;
+  padding-top: 15%;
+  margin-left: 35%;
+  font-size: 100px;
 }
 
-input {
-  display: block;
+#v-no-input {
+  border: 8px solid lightgrey;
+  border-radius: 10px;
+  height: 6vh;
+  width: 50%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.form-label {
-  font-size: 60px;
-  margin-bottom: 100px;
+#v-no-submit {
+  border: 2px solid lightgray;
+  border-radius: 10px;
+  background-color: #46a561;
+  height: 6vh;
+  width: 20%;
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
 }
